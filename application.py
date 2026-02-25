@@ -17,10 +17,35 @@ while trys < total_tries:
     filename = input("Please enter the inventory filename: ")
 
     try:
-        file_handle = open(filename, "r")
-        print("File opened successfully.")
-        break # Exit the loop if the file is opened successfully
+        with open(filename, "r") as file_handle:
+            # Read content of file in and store in a list of content
+            for line in file_handle:
+                line = line.strip()
+                if not line:
+                    continue
+
+                components = line.split("%%")
+                data = []
+
+                try:
+                    data.append(components[1])
+                    data.append(components[2])
+                    data.append(float(components[3]))
+                    data.append(float(components[4]))
+                    data.append(int(components[5]))
+                    if components[0] == "Book":
+                        data.append(components[6])
+                        genres = components[7].split("&&")
+                        data.append(genres)
+
+                except (IndexError, ValueError) as e:
+                    print("File Not Found")
+                    exit()
 
     except FileNotFoundError:
+        print("File Not Found")
+        exit()
+        
+        display(data)
         
 

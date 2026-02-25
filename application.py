@@ -84,5 +84,9 @@ while file:
                     
             display(product_info) # display the product details using the display function
 
-        
+        except IndexError:
+            print("Error: Line does not contain the expected number of parts. Skipping line.")
+            exit()
+            
+    print("End of file reached.")
 

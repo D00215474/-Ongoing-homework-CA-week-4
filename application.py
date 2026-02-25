@@ -72,5 +72,17 @@ while file:
             except:
                 print("Error: Retail price is not a valid number. Skipping line.")
                 exit()
+            
+            if parts[0] == "book":
+                try:
+                    product_info.append(parts[6])
+                    genre_list = parts[7].split("%%")
+                    product_info.append(genre_list)
+                except:
+                    print("Error: Book genre(s) is not in the expected format. Skipping line.")
+                    exit()
+                    
+            display(product_info) # display the product details using the display function
+
         
 

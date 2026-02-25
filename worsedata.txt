@@ -1,0 +1,3 @@
+Product%%ID43%%First product's name
+Book%%ID77%%First Book Title%%1.08%%4.95%%30%
+Product%%ID53%%Third product's name%%3.99%%8.50%%15

@@ -45,3 +45,32 @@ while file:
         line = line.strip()
         if line == "": #skip empty lines
             continue
+
+# Split the line into parts using the "%%" delimiter and store the product information in a list. If the line does not contain the expected number of parts, catch the exception and print an error message.
+        parts = line.split("%%")
+        product_info = []
+
+        try:
+            # Split the line into parts using the "%%" delimiter and store the product information in a list. If the line does not contain the expected number of parts, catch the exception and print an error message.
+            product_info.append(parts[1])
+            product_info.append(parts[2])
+
+            try: 
+                product_info.append(float(parts[3]))
+            except:
+                print("Error: Cost price is not a valid number. Skipping line.")
+                exit()
+            
+            try:
+                product_info.append(int(parts[4]))
+            except:
+                print("Error: Quantity in stock is not a valid number. Skipping line.")
+                exit()
+            
+            try:
+                product_info.append(float(parts[5]))
+            except:
+                print("Error: Retail price is not a valid number. Skipping line.")
+                exit()
+        
+

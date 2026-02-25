@@ -9,13 +9,18 @@ def display(data):
     print(f"\tQuantity in stock: {data[4]}")
     if len(data) == 7:
         print(f"\tGenre(s): {data[6]}")
-        
 
 # Ask user to enter a filename
-filename = input("Please enter the inventory filename: ")
-with open(filename, "r") as file_handle:
-    # Read content of file in and store in a list of content
-    for line in file_handle:
+valid = False
+while not valid:
+    try:
+        filename = input("Please enter the inventory filename: ")
+        valid = True
+    except FileNotFoundError as e:
+            print("File is not found")
+    with open(filename, "r") as file_handle:
+        # Read content of file in and store in a list of content
+        for line in file_handle:
         line = line.strip()
         components = line.split("%%")
         data = []

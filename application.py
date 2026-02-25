@@ -10,38 +10,17 @@ def display(data):
     if len(data) == 7:
         print(f"\tGenre(s): {data[6]}")
         
-filename = input("Please enter the inventory filename: ")
+trys = 0
+total_tries = 5
 
-try:
-    with open(filename, "r") as file_handle:
-        # Read content of file in and store in a list of content
-        for line in file_handle:
-            line = line.strip()
-            if not line:
-                continue
+while trys < total_tries:
+    filename = input("Please enter the inventory filename: ")
 
-            components = line.split("%%")
-            data = []
+    try:
+        file_handle = open(filename, "r")
+        print("File opened successfully.")
+        break # Exit the loop if the file is opened successfully
 
-            try:
-                data.append(components[1])
-                data.append(components[2])
-                data.append(float(components[3]))
-                data.append(float(components[4]))
-                data.append(int(components[5]))
-                if components[0] == "Book":
-                    data.append(components[6])
-                    genres = components[7].split("&&")
-                    data.append(genres)
-
-            except (IndexError, ValueError) as e:
-                print("File Not Found")
-                exit()
-
-except FileNotFoundError:
-    print("File Not Found")
-    exit()
-    
-    display(data)
+    except FileNotFoundError:
         
 

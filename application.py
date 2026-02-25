@@ -10,26 +10,29 @@ def display(data):
     if len(data) == 7:
         print(f"\tGenre(s): {data[6]}")
         
-
-# Ask user to enter a filename
 filename = input("Please enter the inventory filename: ")
 
-with open(filename, "r") as file_handle:
-    # Read content of file in and store in a list of content
-    for line in file_handle:
-        line = line.strip()
-        components = line.split("%%")
-        data = []
-        data.append(components[1])
-        data.append(components[2])
-        data.append(float(components[3]))
-        data.append(float(components[4]))
-        data.append(int(components[5]))
-        if components[0] == "Book":
-            data.append(components[6])
-            genres = components[7].split("&&")
-            data.append(genres)
+try:
+    with open(filename, "r") as file_handle:
+        # Read content of file in and store in a list of content
+        for line in file_handle:
+            line = line.strip()
+            if not line:
+                continue
 
-        # Display data for this line
-        display(data)
+            components = line.split("%%")
+            data = []
+
+            try:
+                data.append(components[1])
+                data.append(components[2])
+                data.append(float(components[3]))
+                data.append(float(components[4]))
+                data.append(int(components[5]))
+                if components[0] == "Book":
+                    data.append(components[6])
+                    genres = components[7].split("&&")
+                    data.append(genres)
+
+            except (IndexError, ValueError) as e:
 

@@ -38,3 +38,10 @@ try:
                 print("File Not Found")
                 exit()
 
+except FileNotFoundError:
+    print("File Not Found")
+    exit()
+    
+    display(data)
+        
+

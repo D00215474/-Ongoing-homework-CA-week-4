@@ -35,4 +35,6 @@ try:
                     data.append(genres)
 
             except (IndexError, ValueError) as e:
+                print("File Not Found")
+                exit()
 

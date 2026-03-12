@@ -8,7 +8,7 @@ class student:
             self._grades = {} #Dictionary to store course and grade pairs
 
      # Method to add or update a grade for a course
-        def validate_id(self, value):
+        def validate_id(self, student_id):
             """
             Validates the student ID. 
             It must be a non-empty string of digits.

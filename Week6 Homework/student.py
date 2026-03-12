@@ -26,7 +26,9 @@ class student:
             It must be a non-empty string of digits.
             check if it starts with D00 
             """
-            # i need to check if ID exists in the system before adding it to the studen
+            # i need to check if ID exists in the system before adding it to the student
+            if not student_id or not isinstance(student_id, str):
+                raise ValueError("Student ID must be a non-empty string.")
             
 
         def __repr__(self):

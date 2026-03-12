@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+import logging
 from types import NotImplementedType
 
 class Product:
@@ -12,6 +12,10 @@ class Product:
         a retail price
         a quantity
     '''
+    #Static loger variable to log all issues to do with the Product class  
+    logger = logging.getLogger(__name__)
+
+
     __ID_PREFIX = "PROD_"
     def __init__(self, id: str, name: str, cost_price: float, retail_price: float, quantity: int):
         """
@@ -23,7 +27,7 @@ class Product:
             retail_price (float): The retail price of the product.
             quantity (int): The quantity of the product in stock.
         """
-    # 
+        # Check if the year is valid 
         if Product.validate_id(id):
             # 
             id = id.upper()

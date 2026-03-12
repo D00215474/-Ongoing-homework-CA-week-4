@@ -41,14 +41,14 @@ def load_student_from_file(filename):
 
                     # check if we have a grade 
                     if len(parts) >= 4:
-                        grade = parts[2].strip()
-                        grade = parts
+                        subject = parts[2].strip()
+                        grade = parts[3].strip()
                     else:
                         # if no grade provided, set it to None
                         print(f"Line {line_number}: No grade provided for student {student_id}")
                         continue
                     if student_id in Students:
-                        Student = Students[student_id]
+                        student = students[student_id]
                     else:
                         #creating new student
                         try:
@@ -61,7 +61,7 @@ def load_student_from_file(filename):
                         if Student.add_grade(subject, grade):
                             print(f"Line {line_number}: Added grade for student {student_id}") 
                         else:
-                            print(f"Line {line_number}: Failed to add grade for student {student_id}")
+                            print(f"Line {line_number}: Subject {subject} already exists for {name} - Keeping original grade {student.grades[subject]}")
                     except InvalidGradeError as e:
                         print(f"Line {line_number}: Invalid grade: {e}")
                 except Exception as e:
@@ -69,6 +69,44 @@ def load_student_from_file(filename):
     except FileNotFoundError:
         print(f"Error: File '{filename}' not found.")
         print("Please make sure grades.txt is in the same directory as this script.")
+
+        return None
+    except PermissionError:
+        print(f"Error: Permission denied when trying to read '{filename}'.")
+        print("Please check the file permissions and try again.")
+        return None
+    
+    return Students
+
+def main():
+    """Main function to load students and print their grades."""
+    print("=" * 50)
+    print("Loading students from grades.txt...")
+    print("=" * 50)
+
+    #Load students from file
+    filename = 'grades.txt'
+    Students = load_student_from_file(filename)
+
+    if Students is None:
+        #File error occured, exit the program
+        print("Exiting program due to file error.")
+        return
+
+    #Print loaded students and their grades
+    print(f"\nSuccessfully loaded {len(students)} student from {filename}:")
+    print("=" * 50)
+
+    #Display summary of loaded students
+    for student_id, Student in Students.items():
+        print(f" {Student}")
+    
+    print("=" * 50)
+
+if __name__ == "__main__":
+    main()
+
+
 
 
                 

@@ -50,32 +50,40 @@ def load_student_from_file(filename):
 
                     if student_id in students:
                         student = students[student_id]
-                    else:
                         #creating new student
+                        try:
+                            if student.add_grade(subject, grade):
+                                print(f"Line{line_number}: Added grade {grade} for {subject} to {name}")
+                            else:
+                                print(f"Line{line_number}: Subject '{subject}' already exists for {name} - keeping original grade {student.grades[subject]}")
+                        except InvalidGradeError as e:
+                            print(f"Line{line_number}: Invalid grade - {e} - skipping")
+                    else:
+                        # Create new student
                         try:
                             student = student(student_id, name)
                             students[student_id] = student
+                            # Add tge grade to new student
+                            try:
+                                if student.add_grade(subject, grade):
+                                        print(f"Line {line_number}: Added grade {grade} for student {name}") 
+                                else:
+                                    print(f"Line {line_number}: Subject {subject} already exists for {name} - Keeping original grade {student.grades[subject]}")
+                            except InvalidGradeError as e:
+                                print(f"Line {line_number}: Invalid grade: {e}")
                         except (ValueError, InvalidIDError) as e:
-                            print(f"Line {line_number}: Error creating student: {e}")
+                            print(f"Line {line_number}: Unexpected error: {e}")
                             continue
-                    try:
-                        if student.add_grade(subject, grade):
-                            print(f"Line {line_number}: Added grade {grade} for student {name}") 
-                        else:
-                            print(f"Line {line_number}: Subject {subject} already exists for {name} - Keeping original grade {student.grades[subject]}")
-                    except InvalidGradeError as e:
-                        print(f"Line {line_number}: Invalid grade: {e}")
                 except Exception as e:
-                    print(f"Line {line_number}: Unexpected error: {e}")
+                    print(f"Lile '{line_number}: Unexpected Error - {e}' not found.")
+                            
     except FileNotFoundError:
-        print(f"Error: File '{filename}' not found.")
-        print("Please make sure grades.txt is in the same directory as this script.")
-
-        return None
-    except PermissionError:
+        print(f"Error: File '{filename}' not found")
         print(f"Error: Permission denied when trying to read '{filename}'.")
         print("Please check the file permissions and try again.")
         return None
+    except PermissionError:
+        print(f"Error: Permission denied to read '{filename}' .")
     
     return students
 

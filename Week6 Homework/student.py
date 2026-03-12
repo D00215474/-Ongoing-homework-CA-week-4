@@ -21,6 +21,18 @@ class student:
             if grade is None:
                 raise InvalidGradeError("Grade cannot be None.")
             
+            # check if grade is a number
+            try:
+                grade_Value = float(grade)
+            except (ValueError, TypeError):
+                raise InvalidGradeError(f"Grade '{grade}' must be a number.")
+            
+            # Checking if grade is between 0 and 100
+            if grade_Value < 0 or grade_Value > 100:
+                raise InvalidGradeError(f"Grade '{grade_Value}' must be between 0 and 100.")
+            
+            return grade_Value
+            
 
         def __init__(self, student_id, name):
             self.student_id = student_id

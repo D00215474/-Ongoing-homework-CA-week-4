@@ -53,29 +53,32 @@ def load_student_from_file(filename):
                         #creating new student
                         try:
                             if student.add_grade(subject, grade):
-                                print(f"Line{line_number}: Added grade {grade} for {subject} to {name}")
+                                print(f"Line {line_number}: Added grade {grade} for {subject} to {name}")
                             else:
-                                print(f"Line{line_number}: Subject '{subject}' already exists for {name} - keeping original grade {student.grades[subject]}")
+                                # use _grades dict since grades() returns a copy
+                                print(f"Line {line_number}: Subject '{subject}' already exists for {name} - keeping original grade {student._grades[subject]}")
                         except InvalidGradeError as e:
                             print(f"Line{line_number}: Invalid grade - {e} - skipping")
                     else:
                         # Create new student
                         try:
-                            student = student(student_id, name)
+                            student = Student(student_id, name)
                             students[student_id] = student
-                            # Add tge grade to new student
+                            # Add the grade to new student
                             try:
                                 if student.add_grade(subject, grade):
-                                        print(f"Line {line_number}: Added grade {grade} for student {name}") 
+                                    print(f"Line {line_number}: Added grade {grade} for student {name}")
                                 else:
-                                    print(f"Line {line_number}: Subject {subject} already exists for {name} - Keeping original grade {student.grades[subject]}")
+                                    print(f"Line {line_number}: Subject {subject} already exists for {name} - keeping original grade {student._grades[subject]}")
                             except InvalidGradeError as e:
-                                print(f"Line {line_number}: Invalid grade: {e}")
+                                print(f"Line {line_number}: Invalid grade - {e}")
                         except (ValueError, InvalidIDError) as e:
-                            print(f"Line {line_number}: Unexpected error: {e}")
+                            print(f"Line {line_number}: Unexpected error - {e}")
                             continue
                 except Exception as e:
-                    print(f"Lile '{line_number}: Unexpected Error - {e}' not found.")
+                    # Catch parsing errors and continue to next line
+                    print(f"Line {line_number}: Unexpected error during parsing - {e}")
+                    continue
                             
     except FileNotFoundError:
         print(f"Error: File '{filename}' not found")
@@ -106,10 +109,10 @@ def search_Student(students):
             print("\n" + "=" * 50)
             print(f"STUDENT INFROMATION")
             print("=" * 50)
-            print(f"ID: {student.studnet_id}")
+            print(f"ID: {student.student_id}")
             print(f"Name: {student.name}")
-            print(f"Grades: ")
-            if not student.grades():
+            print("Grades:")
+            if not student.grades:
                 print("No grades recorded")
             else:
                 for subject, grade in student.grades.items():

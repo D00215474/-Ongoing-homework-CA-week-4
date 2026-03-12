@@ -18,4 +18,15 @@ class student:
                 raise ValueError("Name must be a non-empty string.")
             self._name = value
 
+        def __repr__(self):
+            return f"Student('{self.student_id}', '{self.name}', {len(self._grades)} subjects)"
+        
+        def __str__(self):
+            return f"Student ID: {self.student_id}, Name: {self.name}, Subjects: {len(self._grades)}"
+        
+        def __eq__(self, other):
+            if not isinstance(other, student):
+                return False
+            return self.student_id = other.student_id
+
         

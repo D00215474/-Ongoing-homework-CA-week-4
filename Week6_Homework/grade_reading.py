@@ -87,6 +87,37 @@ def load_student_from_file(filename):
     
     return students
 
+def search_Student(students):
+    """Search for a student by ID and display their infromation"""
+    while True:
+        print("\n" + "-" * 50)
+        search_id = input("Enter student ID to search(or 'quit' to exit): ").strip()
+
+        if search_id.lower() == 'quit':
+            print("Exiting search...")
+            break
+        
+        if not search_id:
+            print("Please enter a valid student ID.")
+            continue
+        
+        if search_id in students:
+            student = students[search_id]
+            print("\n" + "=" * 50)
+            print(f"STUDENT INFROMATION")
+            print("=" * 50)
+            print(f"ID: {student.studnet_id}")
+            print(f"Name: {student.name}")
+            print(f"Grades: ")
+            if not student.grades:
+                print("No grades recorded")
+            else:
+                for subject, grade in student.grades.items():
+                    print(f" {subject}: {grade}")
+            print("=" * 50)
+        else:
+            print(f"\nNo student found with ID {search_id}")
+
 def main():
     """Main function to load students and print their grades."""
     print("=" * 50)

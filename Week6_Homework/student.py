@@ -100,7 +100,7 @@ class Student:
         
         # Method to compare two student objects based on their IDs
         def __eq__(self, other):
-            if not isinstance(other, student):
+            if not isinstance(other, Student):
                 return False
             return self.student_id == other.student_id
         

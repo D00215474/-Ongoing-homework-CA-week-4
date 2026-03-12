@@ -1,5 +1,5 @@
 import os
-from student import Student
+from student import student
 from custom_exceptions import InvalidIDError, InvalidGradeError
 
 def load_student_from_file(filename):
@@ -53,13 +53,13 @@ def load_student_from_file(filename):
                     else:
                         #creating new student
                         try:
-                            student = Student(student_id, name)
+                            student = student(student_id, name)
                             students[student_id] = student
                         except (ValueError, InvalidIDError) as e:
                             print(f"Line {line_number}: Error creating student: {e}")
                             continue
                     try:
-                        if Student.add_grade(subject, grade):
+                        if student.add_grade(subject, grade):
                             print(f"Line {line_number}: Added grade {grade} for student {name}") 
                         else:
                             print(f"Line {line_number}: Subject {subject} already exists for {name} - Keeping original grade {student.grades[subject]}")

@@ -109,7 +109,7 @@ def search_Student(students):
             print(f"ID: {student.studnet_id}")
             print(f"Name: {student.name}")
             print(f"Grades: ")
-            if not student.grades:
+            if not student.grades():
                 print("No grades recorded")
             else:
                 for subject, grade in student.grades.items():

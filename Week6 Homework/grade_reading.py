@@ -13,7 +13,7 @@ def load_student_from_file(filename):
         Dictionary of student_id to Student objects
     """
 
-    Students = {}
+    students = {}
     line_number = 0
 
     try:
@@ -45,21 +45,22 @@ def load_student_from_file(filename):
                         grade = parts[3].strip()
                     else:
                         # if no grade provided, set it to None
-                        print(f"Line {line_number}: No grade provided for student {student_id}")
+                        print(f"Line {line_number}: No grade provided")
                         continue
-                    if student_id in Students:
+
+                    if student_id in students:
                         student = students[student_id]
                     else:
                         #creating new student
                         try:
-                            Student = Student(student_id, name)
-                            Students[student_id] = Student
+                            student = Student(student_id, name)
+                            students[student_id] = student
                         except (ValueError, InvalidIDError) as e:
                             print(f"Line {line_number}: Error creating student: {e}")
                             continue
                     try:
                         if Student.add_grade(subject, grade):
-                            print(f"Line {line_number}: Added grade for student {student_id}") 
+                            print(f"Line {line_number}: Added grade {grade} for student {name}") 
                         else:
                             print(f"Line {line_number}: Subject {subject} already exists for {name} - Keeping original grade {student.grades[subject]}")
                     except InvalidGradeError as e:
@@ -76,7 +77,7 @@ def load_student_from_file(filename):
         print("Please check the file permissions and try again.")
         return None
     
-    return Students
+    return students
 
 def main():
     """Main function to load students and print their grades."""
@@ -86,9 +87,9 @@ def main():
 
     #Load students from file
     filename = 'grades.txt'
-    Students = load_student_from_file(filename)
+    students = load_student_from_file(filename)
 
-    if Students is None:
+    if students is None:
         #File error occured, exit the program
         print("Exiting program due to file error.")
         return
@@ -98,8 +99,8 @@ def main():
     print("=" * 50)
 
     #Display summary of loaded students
-    for student_id, Student in Students.items():
-        print(f" {Student}")
+    for student_id, student in students.items():
+        print(f" {student}")
     
     print("=" * 50)
 

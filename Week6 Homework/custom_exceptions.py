@@ -5,3 +5,4 @@ class InvalidIDError(Exception):
 class InvalidGradeError(ValueError):
     """Exception raised for invalid grades."""
     pass
+

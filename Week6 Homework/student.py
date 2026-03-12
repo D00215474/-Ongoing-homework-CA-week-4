@@ -8,6 +8,7 @@ class student:
             return self._student_id
         
         def student_id(self, value):
+            self.validate_id(value)
             self._student_id = value
 
         def name(self):
@@ -17,6 +18,16 @@ class student:
             if not value or not isinstance(value, str):
                 raise ValueError("Name must be a non-empty string.")
             self._name = value
+
+        # Method to add or update a grade for a course
+        def validate_id(self, value):
+            """
+            Validates the student ID. 
+            It must be a non-empty string of digits.
+            check if it starts with D00 
+            """
+            # i need to check if ID exists in the system before adding it to the studen
+            
 
         def __repr__(self):
             return f"Student('{self.student_id}', '{self.name}', {len(self._grades)} subjects)"

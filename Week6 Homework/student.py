@@ -1,4 +1,12 @@
-class student:
+from custom_exceptions import InvalidIDError, InvalidGradeError
+
+class student:  
+    # Constructor to initialize student_id, name, and an empty dictionary for grades
+        def __init__(self, student_id, name):
+            self.student_id = student_id
+            self.name = name
+            self._grades = {} #Dictionary to store course and grade pairs
+
      # Method to add or update a grade for a course
         def validate_id(self, value):
             """
@@ -9,6 +17,10 @@ class student:
             # i need to check if ID exists in the system before adding it to the student
             if not student_id or not isinstance(student_id, str):
                 raise ValueError("Student ID must be a non-empty string.")
+            
+            # check if ID starts with D00
+            if not student_id.upper().startswith("D00"):
+                raise InvalidIDError(f"Student ID '{student_id}' must start with 'D00'.")
             
         def validate_grade(self, grade):
             """
@@ -32,13 +44,33 @@ class student:
                 raise InvalidGradeError(f"Grade '{grade_Value}' must be between 0 and 100.")
             
             return grade_Value
-            
-        # Constructor to initialize student_id, name, and an empty dictionary for grades
-        def __init__(self, student_id, name):
-            self.student_id = student_id
-            self.name = name
-            self._grades = {} #Dictionary to store course and grade pairs
+
+        # Method to add or update a grade for a course
+        def grades(self):
+            """Returns a copy of the grades dictionary to preserve encapsulation."""
+            return self._grades.copy()
         
+        def add_grade(self, subject, grade):
+            """
+                Adds grades for subject name
+            Args:
+                subject: The name of the subject    
+                grade: The grade value
+            
+            Returns:
+                True If the grade was added, False if the subject already exists
+
+            Raises:
+                InvalidGradeError: If the grade is invalid.
+
+            """
+            #Validate the grade first
+            valid_grade = self.validate_grade(grade)
+            if subject in self._grades:
+                return False
+            self._grades[subject] = valid_grade
+            return True
+
         # Getter for student_id
         def student_id(self):
             return self._student_id

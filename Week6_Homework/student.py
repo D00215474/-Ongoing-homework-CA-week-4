@@ -1,6 +1,6 @@
 from custom_exceptions import InvalidIDError, InvalidGradeError
 
-class student:  
+class Student:  
     # Constructor to initialize student_id, name, and an empty dictionary for grades
         def __init__(self, student_id, name):
             self.student_id = student_id

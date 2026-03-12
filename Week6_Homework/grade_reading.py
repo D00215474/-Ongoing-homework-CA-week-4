@@ -1,5 +1,5 @@
 import os
-from student import student
+from student import Student
 from custom_exceptions import InvalidIDError, InvalidGradeError
 
 def load_student_from_file(filename):

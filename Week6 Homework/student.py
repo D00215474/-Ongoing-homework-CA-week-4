@@ -33,34 +33,40 @@ class student:
             
             return grade_Value
             
-
+        # Constructor to initialize student_id, name, and an empty dictionary for grades
         def __init__(self, student_id, name):
             self.student_id = student_id
             self.name = name
             self._grades = {} #Dictionary to store course and grade pairs
-
+        
+        # Getter for student_id
         def student_id(self):
             return self._student_id
         
+        # Setter for student_id with validation
         def student_id(self, value):
             self.validate_id(value)
             self._student_id = value
 
+        # Getter for name
         def name(self):
             return self._name
         
+        # Setter for name with validation
         def name(self, value):
             if not value or not isinstance(value, str):
                 raise ValueError("Name must be a non-empty string.")
             self._name = value
 
-       
+       # Method to add or update a grade for a course
         def __repr__(self):
             return f"Student('{self.student_id}', '{self.name}', {len(self._grades)} subjects)"
         
+        # Method to provide a string representation of the student
         def __str__(self):
             return f"Student ID: {self.student_id}, Name: {self.name}, Subjects: {len(self._grades)}"
         
+        # Method to compare two student objects based on their IDs
         def __eq__(self, other):
             if not isinstance(other, student):
                 return False
